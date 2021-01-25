@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="board">
+	<select id="selectAllBoard" resultType="boardVo">
+		SELECT * FROM t_board ORDER BY b_act DESC
+	</select>
+	
+	<insert id="boardAdd" parameterType="String">
+		INSERT INTO t_board VALUES (t_board_seq.NEXTVAL ,#{value} , 1 ) 
+	</insert>
+	
+	<select id="selectBoard" resultType="boardVo">
+		SELECT * FROM t_board WHERE b_act = 1
+	</select>
+	
+	<select id="selectPost" resultType="postVo" parameterType="int">
+		SELECT * FROM t_post WHERE b_no = #{value}
+	</select>
+	
+	<update id="boardUpdate" parameterType="boardVo">
+		UPDATE t_board SET b_act = #{b_act} WHERE b_nm = #{b_nm}
+	</update>
+	
+	<select id="boardView" parameterType="int" resultType="postVO">
+		SELECT * FROM t_post WHERE p_no = #{value}
+	</select>
+</mapper>
