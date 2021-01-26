@@ -30,6 +30,14 @@ public class PostVo {
 		this.views = views;
 	}
 	
+	public PostVo(String userid, int b_no, String title, String content, Date p_date) {
+		this.userid = userid;
+		this.b_no = b_no;
+		this.title = title;
+		this.content = content;
+		this.p_date = p_date;
+	}
+	
 	public int getP_no() {
 		return p_no;
 	}

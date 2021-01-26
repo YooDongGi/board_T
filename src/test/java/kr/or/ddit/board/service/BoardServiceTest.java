@@ -1,4 +1,4 @@
-package kr.or.ddit.login.service;
+package kr.or.ddit.board.service;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,6 @@ import kr.or.ddit.board.service.BoardServiceI;
 public class BoardServiceTest {
 
 	private BoardServiceI service;
-	
 	
 	@Test
 	public void selectAllBoardTest() {

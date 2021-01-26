@@ -16,8 +16,14 @@
         <script src="${pageContext.request.contextPath }/js/jquery.slim.min.js" ></script>
         <script src="${pageContext.request.contextPath }/js/bootstrap.bundle.min.js" ></script>
         <script src="${pageContext.request.contextPath }/js/scripts.js"></script>
+        <link href="${pageContext.request.contextPath }/css/dashboard.css" rel="stylesheet">
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" ></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" ></script>
+        
+        <%-- <link href="${cp }/css/bootstrap.min.css" rel="stylesheet"> --%>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="${cp }/js/bootstrap.js"></script>
+		
        	<!-- <script src="assets/demo/datatables-demo.js"></script>  -->
        	<script>
        		$(function() {
@@ -34,28 +40,7 @@
     	<form id="frm" action="${pageContext.request.contextPath }/boardView">
     		<input type="hidden" id="p_no" name="p_no" value="" />
     	</form>
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="${pageContext.request.contextPath }/main">HOME</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="login.html">Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <%@include file="/common/header.jsp" %>
         <div id="layoutSidenav">
             <%@include file="/common/left.jsp" %>
             <div id="layoutSidenav_content">
@@ -74,7 +59,8 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<a class="btn btn-primary" href="/boardRegist?b_no=${page.b_no }">글쓰기</a><br><br>                                
+                                    <table class="table table-bordered" id="dataTable">
                                         <thead>
                                             <tr>
                                                 <th style="width:10%;">글번호</th>
@@ -86,17 +72,57 @@
                                         </thead>
                                         <tbody>
                                         	<c:forEach items="${postList }" var="post">
-                                            <tr class="postno" data-pno="${post.p_no }">
-                                                <td>${post.p_no }</td>
-                                                <td>${post.title }</td>
-                                                <td>${post.userid }</td>
-                                                <td><fmt:formatDate value="${post.p_date }" pattern="yyyy-MM-dd"/> </td>
-                                                <td>${post.views }</td>
-                                            </tr>
+                                        		
+                                            	<c:choose>
+                                            		<c:when test="${post.p_act  == 1}">
+			                                            <tr class="postno" data-pno="${post.p_no }">
+			                                                <td>${post.p_no }</td>
+			                                                <td>${post.title }</td>
+			                                                <td>${post.userid }</td>
+			                                                <td><fmt:formatDate value="${post.p_date }" pattern="yyyy-MM-dd"/> </td>
+			                                                <td>${post.views }</td>
+			                                            </tr>
+			                                        </c:when>
+			                                        <c:otherwise>
+			                                        	<tr>
+			                                                <td>${post.p_no }</td>
+			                                                <td>[삭제된 게시글입니다]</td>
+			                                                <td>${post.userid }</td>
+			                                                <td><fmt:formatDate value="${post.p_date }" pattern="yyyy-MM-dd"/> </td>
+			                                                <td>${post.views }</td>
+			                                            </tr>
+			                                        </c:otherwise>
+                                            	</c:choose>
                                         	</c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="col-sm-12 col-md-7">
+									<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+										<ul class="pagination">
+											<li class="paginate_button page-item previous disabled" id="dataTable_previous">
+												<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+											</li>
+											<c:forEach begin="1" end="${pagination }" var="i">
+												<c:choose>
+													<c:when test="${page.page == i}">
+														<li class="paginate_button page-item active">
+															<span class="page-link">${i }</span>
+														</li>
+													</c:when>
+													<c:otherwise>
+														<li class="paginate_button page-item">
+															<a href="${pageContext.request.contextPath }/boardList?boardno=${page.b_no }&page=${i}" aria-controls="dataTable" class="page-link">${i }</a>
+														</li>		
+													</c:otherwise>
+												</c:choose>
+											</c:forEach>
+											<li class="paginate_button page-item next" id="dataTable_previous">
+												<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">NEXT</a>
+											</li>
+										</ul>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>

@@ -16,43 +16,74 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script src="${pageContext.request.contextPath }/js/bootstrap.bundle.min.js" ></script>
         <script src="${pageContext.request.contextPath }/js/scripts.js"></script>
+        <style>
+        	.comm td{
+        		padding : 15px;
+        	} 
+        	
+        </style>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="${pageContext.request.contextPath }/main">HOME</a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ml-auto ml-md-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="login.html">Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </nav>
+        <%@include file="/common/header.jsp" %>
         <div id="layoutSidenav">
             <%@include file="/common/left.jsp" %>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
                         <h1 class="mt-4">게시글</h1><br><br>
-                        <div class="card mb-4">
-                            <div class="card-body">
+                        <c:if test="${post.userid == S_USER.userid }">
+	                        <a class="btn btn-primary" href="/boardModify?p_no=${post.p_no }">수정</a>
+	                        <a class="btn btn-primary" href="/boardDelete?p_no=${post.p_no }&b_no=${post.b_no }">삭제</a>
+                        </c:if>
+                        <a class="btn btn-primary" href="#">답글</a>
+                        <br><br>
+                        <div class="card mb-4" style="height: 100vh">
+                            <div class="card-body mb-7">
                             	<br><br>
                             	<h4>${post.title }</h4>
+                            	<p align="right">글쓴이 : ${post.userid } / 작성일 : <fmt:formatDate value="${post.p_date }" pattern="yy-MM-dd"/>  / 조회 수 : ${post.views }</p>
                             	<hr><br>
-                            	<h3>게시판 설정</h3><br>
+                            	<h3>${post.content }</h3><br><br>
                             </div>
+                            <div class="card-body mb-6">
+                            	<hr>
+                            	<form action="${pageContext.request.contextPath }/commentAD" method="post">
+                            		<input type="hidden" name="userid" value="${S_USER.userid }">
+                            		<input type="hidden" name="p_no" value="${post.p_no }">
+		                        	<textarea name="c_con" placeholder="댓글입력" rows="6" cols="100"></textarea>
+			                    	<input class="btn btn-primary" type="submit" value="댓글등록">
+		                    	</form>
+		                    	<br><br><br>
+		                    	<h5>댓글 목록</h5>
+		                    	<br>
+		                    	<table class="comm">
+		                    		<tr>
+		                    			<td style="min-width: 500px;"> 댓글 내용</td>
+		                    			<td style="min-width: 200px;">작성자</td>
+		                    			<td style="min-width: 200px;">작성날짜</td>
+		                    			<td></td>
+		                    		</tr>
+			                    	<c:forEach items="${commentList }" var="comment">
+			                    		<tr>
+			                    			<c:choose>
+												<c:when test="${comment.c_act == 1}">
+			                    					<td>${comment.c_con }</td>
+					                    			<td>${comment.userid }</td>
+					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd"/></td>
+					                    			<td><c:if test="${comment.userid == S_USER.userid }">
+					                    				<a href="${pageContext.request.contextPath }/commentAD?p_no=${post.p_no }&c_no=${comment.c_no}"> x </a></c:if></td>
+												</c:when>
+												<c:otherwise>
+													<td>[삭제된 댓글입니다]</td>
+													<td>${comment.userid }</td>
+					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd"/></td>
+					                    			<td></td>
+												</c:otherwise>			                  			
+			                    			</c:choose>
+			                    		</tr>
+			                    	</c:forEach>
+		                    	</table>
+		                    </div>
                         </div>
                     </div>
                 </main>

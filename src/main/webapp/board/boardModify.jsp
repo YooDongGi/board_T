@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>메인</title>
+        <title>게시글 수정</title>
         <link href="${pageContext.request.contextPath }/css/styles.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
@@ -24,19 +24,27 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">메인 페이지</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item">메인페이지</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                <p class="mb-0">
-                                    This page is an example of using static navigation. By removing the
-                                    <code>.sb-nav-fixed</code>
-                                    class from the
-                                    <code>body</code>
-                                    , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
-                                </p>
+                        <h1 class="mt-4">게시글 수정</h1><br><br>
+                        <div class="card mb-4" style="height: 100vh">
+                            <div class="card-body mb-7">
+                            	<form action="${pageContext.request.contextPath }/boardModify" method="post">
+                            		<input type="hidden" name="p_no" value="${post.p_no }">
+	                            	<br><br>
+	                            	<label class="col-sm-2 control-label">제목</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control" id="title" name="title" placeholder="제목" value="${post.title }">
+									</div>
+	                            	<hr><br>
+	                            	<div class="col-sm-8">
+	                            		첨부파일
+									</div><br><br>
+	                            	<label class="col-sm-2 control-label">내용</label>
+	                            	<div class="col-sm-8">
+										<textarea class="form-control" id="content" name="content" placeholder="내용" cols="500" rows="12">${post.content }</textarea>
+	                        			<br><br>
+	                        			<input class="btn btn-primary" type="submit" value="저장">
+									</div>
+								</form>
                             </div>
                         </div>
                     </div>

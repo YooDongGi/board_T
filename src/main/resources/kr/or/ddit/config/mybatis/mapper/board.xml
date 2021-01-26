@@ -27,4 +27,46 @@
 	<select id="boardView" parameterType="int" resultType="postVO">
 		SELECT * FROM t_post WHERE p_no = #{value}
 	</select>
+	
+	<select id="selectPagingPost" resultType="postVo" parameterType="pageVo">
+		SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		     FROM (SELECT * FROM t_post WHERE b_no = #{b_no} ORDER BY p_no DESC) a
+		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+	</select>
+	
+	<select id="selectPostCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) cnt FROM t_post WHERE b_no = #{value}
+	</select>
+	
+	<update id="postUpdate" parameterType="postVo">
+		UPDATE t_post set title = #{title}, content=#{content} WHERE p_no = #{p_no}
+	</update>
+	
+	<delete id="postDelete" parameterType="int">
+		UPDATE t_post set p_act = 0 WHERE p_no = #{value}
+	</delete>
+	
+	<insert id="postRegist" parameterType="postVo">
+		INSERT INTO t_post VALUES (t_post_seq.NEXTVAL , #{userid}, #{b_no}, #{title} , #{content}
+								 	, #{p_date}, 1, null, t_post_seq.NEXTVAL, 0)
+	</insert>
+	
+	<select id="selectSeq" resultType="int">
+		SELECT t_post_seq.CURRVAL cnt FROM dual
+	</select>
+	
+	<select id="selectComment" resultType="commentVo" parameterType="int">
+		SELECT * FROM t_comment WHERE p_no = #{value} ORDER BY c_no
+	</select>
+	
+	<insert id="commentRegist" parameterType="commentVo">
+		INSERT INTO t_comment VALUES (t_comment_seq.NEXTVAL, #{userid}, #{p_no}, #{c_con}, #{c_date}, 1)
+	</insert>
+	
+	<update id="commentDelete" parameterType="int">
+		UPDATE t_comment set c_act = 0 WHERE c_no = #{value}
+	</update>
 </mapper>

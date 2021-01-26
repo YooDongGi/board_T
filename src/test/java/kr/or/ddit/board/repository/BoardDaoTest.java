@@ -1,4 +1,4 @@
-package kr.or.ddit.login.repository;
+package kr.or.ddit.board.repository;
 
 import static org.junit.Assert.*;
 

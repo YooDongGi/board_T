@@ -10,8 +10,7 @@
 						href="${pageContext.request.contextPath }/manage">게시판 관리</a>
 					<div class="sb-sidenav-menu-heading">게시판 목록</div>
 					<c:forEach items="${boardL }" var="board">
-						<a class="nav-link collapsed"
-							href="/boardList?boardno=${board.b_no }"> ${board.b_nm } </a>
+						<a class="nav-link collapsed" href="/boardList?boardno=${board.b_no }"> ${board.b_nm } </a>
 					</c:forEach>
 				</div>
 			</div>
