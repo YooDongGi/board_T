@@ -3,6 +3,7 @@ package kr.or.ddit.board.model;
 import java.util.Date;
 
 public class PostVo {
+	private int level;
 	private int p_no;
 	private String userid;
 	private int b_no;
@@ -101,6 +102,12 @@ public class PostVo {
 	}
 	public void setViews(int views) {
 		this.views = views;
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 	@Override

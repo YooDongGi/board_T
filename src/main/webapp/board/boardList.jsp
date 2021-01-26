@@ -77,7 +77,11 @@
                                             		<c:when test="${post.p_act  == 1}">
 			                                            <tr class="postno" data-pno="${post.p_no }">
 			                                                <td>${post.p_no }</td>
-			                                                <td>${post.title }</td>
+			                                                <td>
+			                                                <c:forEach begin="1" end="${post.level -1}" >
+			                                                👉
+			                                                </c:forEach>
+			                                                ${post.title }</td>
 			                                                <td>${post.userid }</td>
 			                                                <td><fmt:formatDate value="${post.p_date }" pattern="yyyy-MM-dd"/> </td>
 			                                                <td>${post.views }</td>

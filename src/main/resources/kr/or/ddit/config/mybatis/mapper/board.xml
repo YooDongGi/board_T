@@ -32,9 +32,22 @@
 		SELECT *
 		FROM
 		    (SELECT ROWNUM rn, a.*
-		     FROM (SELECT * FROM t_post WHERE b_no = #{b_no} ORDER BY p_no DESC) a
+		     FROM (SELECT level, p_no, userid, b_no, title, CONTENT, p_date, p_act, views
+		            FROM t_post
+		            WHERE b_no = 3
+		            START WITH parent_no IS NULL
+		            CONNECT BY PRIOR p_no = parent_no
+		            ORDER SIBLINGS BY gno DESC, p_no ASC) a
 		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
 		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+		<!-- 
+		SELECT *
+		FROM
+		    (SELECT ROWNUM rn, a.*
+		     FROM (SELECT * FROM t_post WHERE b_no = #{b_no} ORDER BY p_no DESC) a
+		     WHERE ROWNUM &lt;= #{page} * #{pageSize})
+		WHERE rn BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize} 
+		-->
 	</select>
 	
 	<select id="selectPostCnt" parameterType="int" resultType="int">
