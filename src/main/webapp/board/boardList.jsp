@@ -104,9 +104,24 @@
                                 <div class="col-sm-12 col-md-7">
 									<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
 										<ul class="pagination">
-											<li class="paginate_button page-item previous disabled" id="dataTable_previous">
-												<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
-											</li>
+											<c:choose>
+												<c:when test="${page.page == 1 }">
+													<li class="paginate_button page-item previous disabled" id="dataTable_previous">
+														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&lt; &lt;</a>
+													</li>
+													<li class="paginate_button page-item previous disabled" id="dataTable_previous">
+														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&lt;</a>
+													</li>	
+												</c:when>
+												<c:otherwise>
+													<li class="paginate_button page-item previous" id="dataTable_previous">
+														<a href="${pageContext.request.contextPath }/boardList?boardno=${page.b_no }&page=1" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&lt; &lt;</a>
+													</li>
+													<li class="paginate_button page-item previous" id="dataTable_previous">
+														<a href="${pageContext.request.contextPath }/boardList?boardno=${page.b_no }&page=${page.page - 1}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&lt;</a>
+													</li>	
+												</c:otherwise>
+											</c:choose>
 											<c:forEach begin="1" end="${pagination }" var="i">
 												<c:choose>
 													<c:when test="${page.page == i}">
@@ -121,9 +136,24 @@
 													</c:otherwise>
 												</c:choose>
 											</c:forEach>
-											<li class="paginate_button page-item next" id="dataTable_previous">
-												<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">NEXT</a>
-											</li>
+											<c:choose>
+												<c:when test="${page.page == pagination }">
+													<li class="paginate_button page-item next disabled" id="dataTable_previous">
+														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&gt;</a>
+													</li>
+													<li class="paginate_button page-item next disabled" id="dataTable_previous">
+														<a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&gt; &gt;</a>
+													</li>
+												</c:when>
+												<c:otherwise>
+													<li class="paginate_button page-item next" id="dataTable_previous">
+														<a href="${pageContext.request.contextPath }/boardList?boardno=${page.b_no }&page=${page.page +1}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&gt;</a>
+													</li>
+													<li class="paginate_button page-item next" id="dataTable_previous">
+														<a href="${pageContext.request.contextPath }/boardList?boardno=${page.b_no }&page=${pagination}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">&gt; &gt;</a>
+													</li>
+												</c:otherwise>
+											</c:choose>
 										</ul>
 									</div>
 								</div>
