@@ -52,4 +52,10 @@ public interface BoardServiceI {
 	
 	// 댓글 삭제
 	int commentDelete(int c_no);
+	
+	// 답글 등록
+	int replyRegist(PostVo vo);
+	
+	// 게시판 이름 조회
+	String boardName(int b_no);
 }

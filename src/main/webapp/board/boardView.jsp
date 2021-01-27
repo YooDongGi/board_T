@@ -35,7 +35,7 @@
 	                        <a class="btn btn-primary" href="/boardModify?p_no=${post.p_no }">수정</a>
 	                        <a class="btn btn-primary" href="/boardDelete?p_no=${post.p_no }&b_no=${post.b_no }">삭제</a>
                         </c:if>
-                        <a class="btn btn-primary" href="#">답글</a>
+                        <a class="btn btn-primary" href="/replyRegist?pa_no=${post.p_no }">답글</a>
                         <br><br>
                         <div class="card mb-4" style="height: 100vh">
                             <div class="card-body mb-7">
@@ -58,7 +58,7 @@
 		                    	<br>
 		                    	<table class="comm">
 		                    		<tr>
-		                    			<td style="min-width: 500px;"> 댓글 내용</td>
+		                    			<td style="min-width: 500px;"> 내용</td>
 		                    			<td style="min-width: 200px;">작성자</td>
 		                    			<td style="min-width: 200px;">작성날짜</td>
 		                    			<td></td>
@@ -69,14 +69,14 @@
 												<c:when test="${comment.c_act == 1}">
 			                    					<td>${comment.c_con }</td>
 					                    			<td>${comment.userid }</td>
-					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd"/></td>
+					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd HH:mm"/></td>
 					                    			<td><c:if test="${comment.userid == S_USER.userid }">
 					                    				<a href="${pageContext.request.contextPath }/commentAD?p_no=${post.p_no }&c_no=${comment.c_no}"> x </a></c:if></td>
 												</c:when>
 												<c:otherwise>
 													<td>[삭제된 댓글입니다]</td>
 													<td>${comment.userid }</td>
-					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd"/></td>
+					                    			<td><fmt:formatDate value="${comment.c_date }" pattern="yy-MM-dd hh.mm"/></td>
 					                    			<td></td>
 												</c:otherwise>			                  			
 			                    			</c:choose>

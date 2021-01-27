@@ -197,6 +197,30 @@ public class BoardDao implements BoardDaoI{
 		return cnt;
 	}
 
+	@Override
+	public int replyRegist(PostVo vo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		logger.debug("vo : {}", vo);
+		int cnt = sqlSession.insert("board.replyRegist", vo);
+		logger.debug("cnt : {}", cnt);
+		if(cnt != 0) {
+			logger.debug("commit ");
+			sqlSession.commit();
+		} else {	// 비정상적으로 동작했을 경우 rollback을 한다
+			logger.debug("rollback ");
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return cnt;
+	}
+
+	@Override
+	public String boardName(int b_no) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		String b_nm = sqlSession.selectOne("board.boardName", b_no);
+		sqlSession.close();
+		return b_nm;
+	}
 
 	
 }

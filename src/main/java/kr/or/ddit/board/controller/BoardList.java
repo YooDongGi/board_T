@@ -32,14 +32,16 @@ public class BoardList extends HttpServlet{
 		PageVo vo = new PageVo(page, pageSize, b_no);
 		List<PostVo> postList = boardService.selectPagingPost(vo);
 		List<BoardVo> boardL = boardService.selectBoard();
+		String b_nm = boardService.boardName(b_no);
 		int cnt = boardService.selectPostCnt(b_no);
 		
 		int pagination = (int)Math.ceil((double)cnt/pageSize);
-		
+		pagination = pagination == 0 ? 1 : pagination;
 		req.setAttribute("boardL", boardL);
 		req.setAttribute("postList", postList);
 		req.setAttribute("pagination", pagination);
 		req.setAttribute("page", vo);
+		req.setAttribute("b_nm", b_nm);
 		
 		req.getRequestDispatcher("/board/boardList.jsp").forward(req, resp);
 		

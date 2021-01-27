@@ -87,5 +87,15 @@ public class BoardService implements BoardServiceI {
 		return boardDao.commentDelete(c_no);
 	}
 
+	@Override
+	public int replyRegist(PostVo vo) {
+		return boardDao.replyRegist(vo);
+	}
+
+	@Override
+	public String boardName(int b_no) {
+		return boardDao.boardName(b_no);
+	}
+
 	
 }

@@ -34,7 +34,7 @@
 		    (SELECT ROWNUM rn, a.*
 		     FROM (SELECT level, p_no, userid, b_no, title, CONTENT, p_date, p_act, views
 		            FROM t_post
-		            WHERE b_no = 3
+		            WHERE b_no = #{b_no}
 		            START WITH parent_no IS NULL
 		            CONNECT BY PRIOR p_no = parent_no
 		            ORDER SIBLINGS BY gno DESC, p_no ASC) a
@@ -82,4 +82,13 @@
 	<update id="commentDelete" parameterType="int">
 		UPDATE t_comment set c_act = 0 WHERE c_no = #{value}
 	</update>
+	
+	<insert id="replyRegist" parameterType="postVo">
+		INSERT INTO t_post VALUES (t_post_seq.NEXTVAL , #{userid} , #{b_no}, #{title}, #{content},
+									#{p_date}, 1, #{parent_no}, #{gno}, 0)
+	</insert>
+	
+	<select id="boardName" parameterType="int" resultType="String">
+		SELECT b_nm FROM t_board WHERE b_no = #{value}
+	</select>
 </mapper>

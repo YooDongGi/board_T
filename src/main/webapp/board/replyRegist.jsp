@@ -10,13 +10,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>게시글 등록</title>
+        <title>답글 등록</title>
         <link href="${pageContext.request.contextPath }/css/styles.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script src="${pageContext.request.contextPath }/js/bootstrap.bundle.min.js" ></script>
         <script src="${pageContext.request.contextPath }/js/scripts.js"></script>
-		<!-- <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
 		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
@@ -36,9 +35,11 @@
                         <h1 class="mt-4">게시글 작성</h1><br><br>
                         <div class="card mb-4" style="height: 100vh">
                             <div class="card-body mb-7">
-                            	<form action="${pageContext.request.contextPath }/boardRegist" method="post">
+                            	<form action="${pageContext.request.contextPath }/replyRegist" method="post">
+                            		param.pa_no : ${param.pa_no } <br>
+                            		S_USER.userid : ${S_USER.userid }
+                            		<input type="hidden" name="pa_no" value="${param.pa_no }">
                             		<input type="hidden" name="userid" value="${S_USER.userid }">
-                            		<input type="hidden" name="b_no" value="${param.b_no }">
 	                            	<br><br>
 	                            	<label class="col-sm-2 control-label">제목</label>
 									<div class="col-sm-8">
@@ -52,7 +53,7 @@
 	                            	<div class="col-sm-8">
 										<textarea class="form-control" id="summernote" name="content" placeholder="내용" cols="500" rows="12"></textarea>
 	                        			<br><br>
-	                        			<input class="btn btn-primary" type="submit" value="저장">
+	                        			<input class="btn btn-primary" type="submit" value="등록">
 									</div>
 								</form>
                             </div>

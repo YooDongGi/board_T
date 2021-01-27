@@ -46,12 +46,8 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">게시판</h1>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                            	공지사항
-                            </div>
-                        </div>
+                        <h1 class="mt-4">${b_nm }</h1>
+                        <br><hr><br><br>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
@@ -79,7 +75,7 @@
 			                                                <td>${post.p_no }</td>
 			                                                <td>
 			                                                <c:forEach begin="1" end="${post.level -1}" >
-			                                                👉
+			                                                &nbsp; 👉
 			                                                </c:forEach>
 			                                                ${post.title }</td>
 			                                                <td>${post.userid }</td>
