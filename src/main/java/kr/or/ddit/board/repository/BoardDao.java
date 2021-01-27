@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.or.ddit.board.model.AttachVo;
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.model.CommentVo;
 import kr.or.ddit.board.model.PostVo;
@@ -220,6 +221,48 @@ public class BoardDao implements BoardDaoI{
 		String b_nm = sqlSession.selectOne("board.boardName", b_no);
 		sqlSession.close();
 		return b_nm;
+	}
+
+	@Override
+	public int attachAdd(AttachVo vo) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int cnt = sqlSession.insert("board.attachAdd", vo);
+		if(cnt != 0) {
+			sqlSession.commit();
+		} else {	
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return cnt;
+	}
+
+	@Override
+	public List<AttachVo> attachList(int p_no) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		List<AttachVo> attachList = sqlSession.selectList("board.attachList", p_no);
+		sqlSession.close();
+		return attachList;
+	}
+
+	@Override
+	public AttachVo selectAttach(int a_no) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		AttachVo attach = sqlSession.selectOne("board.selectAttach", a_no);
+		sqlSession.close();
+		return attach;
+	}
+
+	@Override
+	public int attachDelete(int a_no) {
+		SqlSession sqlSession = MybatisUtil.getSqlSession();
+		int cnt = sqlSession.delete("board.attachDelete", a_no);
+		if(cnt != 0) {
+			sqlSession.commit();
+		} else {	
+			sqlSession.rollback();
+		}
+		sqlSession.close();
+		return cnt;
 	}
 
 	

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.board.model.AttachVo;
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.model.CommentVo;
 import kr.or.ddit.board.model.PostVo;
@@ -32,10 +33,12 @@ public class BoardView extends HttpServlet{
 		PostVo post = boardService.boardView(p_no);
 		List<BoardVo> boardL = boardService.selectBoard();
 		List<CommentVo> commentList = boardService.selectComment(p_no);
+		List<AttachVo> attachList = boardService.attachList(p_no);
 		
 		req.setAttribute("boardL", boardL);
 		req.setAttribute("post", post);
 		req.setAttribute("commentList", commentList);
+		req.setAttribute("attachList", attachList);
 		req.getRequestDispatcher("/board/boardView.jsp").forward(req, resp);
 		
 	}

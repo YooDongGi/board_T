@@ -35,9 +35,7 @@
                         <h1 class="mt-4">게시글 작성</h1><br><br>
                         <div class="card mb-4" style="height: 100vh">
                             <div class="card-body mb-7">
-                            	<form action="${pageContext.request.contextPath }/replyRegist" method="post">
-                            		param.pa_no : ${param.pa_no } <br>
-                            		S_USER.userid : ${S_USER.userid }
+                            	<form action="${pageContext.request.contextPath }/replyRegist" method="post" enctype="multipart/form-data">
                             		<input type="hidden" name="pa_no" value="${param.pa_no }">
                             		<input type="hidden" name="userid" value="${S_USER.userid }">
 	                            	<br><br>
@@ -47,7 +45,8 @@
 									</div>
 	                            	<hr><br>
 	                            	<div class="col-sm-8">
-	                            		첨부파일
+	                            		첨부파일<br>
+	                            		<input type="file" name="file">
 									</div><br><br>
 	                            	<label class="col-sm-2 control-label">내용</label>
 	                            	<div class="col-sm-8">

@@ -37,12 +37,19 @@
                         </c:if>
                         <a class="btn btn-primary" href="/replyRegist?pa_no=${post.p_no }">답글</a>
                         <br><br>
-                        <div class="card mb-4" style="height: 100vh">
+                        <div class="card mb-4" style="height: 150vh">
                             <div class="card-body mb-7">
                             	<br><br>
                             	<h4>${post.title }</h4>
                             	<p align="right">글쓴이 : ${post.userid } / 작성일 : <fmt:formatDate value="${post.p_date }" pattern="yy-MM-dd"/>  / 조회 수 : ${post.views }</p>
-                            	<hr><br>
+                            	<hr>
+                            	<label style="font: bold;">첨부파일</label>
+								<ol>
+								<c:forEach items="${attachList }" var="attach">
+									<li onclick="location.href='/profileDownload?a_no=${attach.a_no}'">${attach.a_nm }</li>					
+								</c:forEach>								                            	
+								</ol>
+                            	<br><hr>
                             	<h3>${post.content }</h3><br><br>
                             </div>
                             <div class="card-body mb-6">

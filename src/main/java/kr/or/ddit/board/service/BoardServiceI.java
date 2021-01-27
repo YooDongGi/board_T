@@ -2,6 +2,7 @@ package kr.or.ddit.board.service;
 
 import java.util.List;
 
+import kr.or.ddit.board.model.AttachVo;
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.model.CommentVo;
 import kr.or.ddit.board.model.PostVo;
@@ -58,4 +59,16 @@ public interface BoardServiceI {
 	
 	// 게시판 이름 조회
 	String boardName(int b_no);
+	
+	// 첨부파일 등록
+	int attachAdd(AttachVo vo);
+	
+	// 게시글의 첨부파일 조회
+	List<AttachVo> attachList(int p_no);
+	
+	// 첨부파일 번호를 이용해 첨부파일 정보 조회
+	AttachVo selectAttach(int a_no);
+	
+	// 첨부파일 삭제
+	int attachDelete(int a_no);
 }

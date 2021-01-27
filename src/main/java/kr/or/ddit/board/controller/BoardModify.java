@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.or.ddit.board.model.AttachVo;
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.model.PostVo;
 import kr.or.ddit.board.service.BoardService;
@@ -25,10 +26,11 @@ public class BoardModify extends HttpServlet{
 		
 		PostVo post = boardService.boardView(p_no);
 		List<BoardVo> boardL = boardService.selectBoard();
+		List<AttachVo> attachList = boardService.attachList(p_no);
 		
 		req.setAttribute("boardL", boardL);
 		req.setAttribute("post", post);
-		
+		req.setAttribute("attachList", attachList);
 		req.getRequestDispatcher("/board/boardModify.jsp").forward(req, resp);
 	}
 	@Override

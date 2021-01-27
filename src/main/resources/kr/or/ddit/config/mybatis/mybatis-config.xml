@@ -9,6 +9,7 @@
 		<typeAlias type="kr.or.ddit.board.model.BoardVo" alias="boardVo"/>
 		<typeAlias type="kr.or.ddit.board.model.PostVo" alias="postVo"/>
 		<typeAlias type="kr.or.ddit.board.model.CommentVo" alias="commentVo"/>
+		<typeAlias type="kr.or.ddit.board.model.AttachVo" alias="attachVo"/>
 		<typeAlias type="kr.or.ddit.common.model.PageVo" alias="pageVo"/>
 	</typeAliases>
 	

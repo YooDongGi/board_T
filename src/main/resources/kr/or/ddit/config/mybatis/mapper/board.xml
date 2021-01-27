@@ -91,4 +91,20 @@
 	<select id="boardName" parameterType="int" resultType="String">
 		SELECT b_nm FROM t_board WHERE b_no = #{value}
 	</select>
+	
+	<insert id="attachAdd" parameterType="attachVo">
+		INSERT INTO t_attach VALUES(t_attach_seq.NEXTVAL, #{a_nm}, #{a_route}, #{p_no} )
+	</insert>
+	
+	<select id="attachList" parameterType="int" resultType="attachVo">
+		SELECT * FROM t_attach WHERE p_no = #{value}
+	</select>
+	
+	<select id="selectAttach" parameterType="int" resultType="attachVo">
+		SELECT * FROM t_attach WHERE a_no = #{value}
+	</select>
+	
+	<delete id="attachDelete" parameterType="int">
+		DELETE FROM t_attach WHERE a_no = #{value}
+	</delete>
 </mapper>

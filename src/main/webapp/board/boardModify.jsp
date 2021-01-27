@@ -12,10 +12,37 @@
         <meta name="author" content="" />
         <title>게시글 수정</title>
         <link href="${pageContext.request.contextPath }/css/styles.css" rel="stylesheet" />
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
         <script src="${pageContext.request.contextPath }/js/bootstrap.bundle.min.js" ></script>
         <script src="${pageContext.request.contextPath }/js/scripts.js"></script>
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js" defer></script>
+		<script>
+			$(function() {
+				$('#summernote').summernote();
+				
+				$('.adelete').on('click',function(){
+					var a_no = $(this).data("a_no");
+					$.ajax({
+						url:'/fileDelete',
+						type:'get',
+						dateType:'json',
+						data : {
+							a_no : a_no
+						},
+						success:function(data){
+							alert(data);
+						},
+						error:function(xhr){
+							alert("상태 :" + xhr.status);
+						}
+					})
+				});
+				
+			})
+		</script>
     </head>
     <body class="sb-nav-fixed">
         <%@include file="/common/header.jsp" %>
@@ -36,11 +63,16 @@
 									</div>
 	                            	<hr><br>
 	                            	<div class="col-sm-8">
-	                            		첨부파일
+	                            		<h5>첨부파일</h5>
+											<c:forEach items="${attachList }" var="attach" varStatus="loop">
+												${loop.count }. ${attach.a_nm } 
+												<input type="button" class="adelete" value="X" data-a_no="${attach.a_no }">
+												<%-- <a class="btn" href="/fileDelete?a_no=${attach.a_no }">X</a><br><br> --%>
+											</c:forEach>								                            	
 									</div><br><br>
 	                            	<label class="col-sm-2 control-label">내용</label>
 	                            	<div class="col-sm-8">
-										<textarea class="form-control" id="content" name="content" placeholder="내용" cols="500" rows="12">${post.content }</textarea>
+										<textarea class="form-control" id="summernote" name="content" placeholder="내용" cols="500" rows="12">${post.content }</textarea>
 	                        			<br><br>
 	                        			<input class="btn btn-primary" type="submit" value="저장">
 									</div>

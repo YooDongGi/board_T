@@ -2,6 +2,7 @@ package kr.or.ddit.board.service;
 
 import java.util.List;
 
+import kr.or.ddit.board.model.AttachVo;
 import kr.or.ddit.board.model.BoardVo;
 import kr.or.ddit.board.model.CommentVo;
 import kr.or.ddit.board.model.PostVo;
@@ -95,6 +96,26 @@ public class BoardService implements BoardServiceI {
 	@Override
 	public String boardName(int b_no) {
 		return boardDao.boardName(b_no);
+	}
+
+	@Override
+	public int attachAdd(AttachVo vo) {
+		return boardDao.attachAdd(vo);
+	}
+
+	@Override
+	public List<AttachVo> attachList(int p_no) {
+		return boardDao.attachList(p_no);
+	}
+
+	@Override
+	public AttachVo selectAttach(int a_no) {
+		return boardDao.selectAttach(a_no);
+	}
+
+	@Override
+	public int attachDelete(int a_no) {
+		return boardDao.attachDelete(a_no);
 	}
 
 	
