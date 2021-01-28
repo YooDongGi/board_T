@@ -21,7 +21,7 @@ public class ProfileDownloadServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding("utf-8");
+		req.setCharacterEncoding("utf-8");
 		
 		int a_no = Integer.parseInt(req.getParameter("a_no"));
 		AttachVo attVo = boardService.selectAttach(a_no);
