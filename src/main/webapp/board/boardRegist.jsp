@@ -23,6 +23,19 @@
 		<script>
 			$(function() {
 				$('#summernote').summernote();	
+				
+				var i = 1;
+				
+				$('#aAdd').on('click',function() {
+					if(i < 5) {
+						$('#attachL').append('<input type="file" id='+ i +' name="file"> <br>')
+						i++;
+					}
+					else {
+						alert("5개까지만 가능합니다.");
+					}
+					
+				})
 			})
 		</script>
     </head>
@@ -46,8 +59,12 @@
 									</div>
 	                            	<hr><br>
 	                            	<div class="col-sm-8">
-	                            		첨부파일<br>
-	                            		<input type="file" name="file">
+	                            		첨부파일 <input type="button" id="aAdd" value="추가"> 
+	                            		<br><br>
+	                            		<div id="attachL">
+	                            			<input type="file" name="file"> 
+	                            			<br>
+	                            		</div>
 									</div><br><br>
 	                            	<label class="col-sm-2 control-label">내용</label>
 	                            	<div class="col-sm-8">
