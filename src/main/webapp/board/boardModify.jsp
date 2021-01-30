@@ -25,6 +25,7 @@
 				
 				$('.adelete').on('click',function(){
 					var a_no = $(this).data("a_no");
+					var th = $(this);
 					$.ajax({
 						url:'/fileDelete',
 						type:'get',
@@ -33,7 +34,8 @@
 							a_no : a_no
 						},
 						success:function(data){
-							alert(data);
+							$(th).parent().remove();
+							alert("삭제되었습니다.");
 						},
 						error:function(xhr){
 							alert("상태 :" + xhr.status);
@@ -65,9 +67,10 @@
 	                            	<div class="col-sm-8">
 	                            		<h5>첨부파일</h5>
 											<c:forEach items="${attachList }" var="attach" varStatus="loop">
-												${loop.count }. ${attach.a_nm } 
-												<input type="button" class="adelete" value="X" data-a_no="${attach.a_no }">
-												<%-- <a class="btn" href="/fileDelete?a_no=${attach.a_no }">X</a><br><br> --%>
+	                            				<div>
+													${loop.count }. ${attach.a_nm } 
+													<input type="button" class="adelete" value="X" data-a_no="${attach.a_no }">
+												</div>
 											</c:forEach>								                            	
 									</div><br><br>
 	                            	<label class="col-sm-2 control-label">내용</label>

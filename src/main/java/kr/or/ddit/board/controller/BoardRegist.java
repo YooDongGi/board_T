@@ -54,11 +54,11 @@ public class BoardRegist extends HttpServlet{
 		
 		
 		int cnt = 0;
-		int a_cnt = 0;
 		try {
 			cnt = boardService.postRegist(vo);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			cnt = 0;
 		}
 		Part file = req.getPart("file");
@@ -76,7 +76,7 @@ public class BoardRegist extends HttpServlet{
 			attach.setA_nm(a_nm);
 			attach.setA_route(a_route);
 			attach.setP_no(seq);
-			a_cnt = boardService.attachAdd(attach);
+			int a_cnt = boardService.attachAdd(attach);
 		}
 		
 		if(cnt == 1) {

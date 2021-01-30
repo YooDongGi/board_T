@@ -68,7 +68,7 @@
 	</insert>
 	
 	<select id="selectSeq" resultType="int">
-		SELECT t_post_seq.CURRVAL cnt FROM dual
+		SELECT MAX(p_no) cnt FROM t_post 
 	</select>
 	
 	<select id="selectComment" resultType="commentVo" parameterType="int">
